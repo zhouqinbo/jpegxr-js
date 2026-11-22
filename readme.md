@@ -1,25 +1,35 @@
 # jpegxr-js
 
-JPEG XR decoding in JavaScript, with fast sub-resolution decode.
+Decode JPEG XR images in the browser. Fast, one file.
 
-- **Opens JPEG XR in the browser.** No browser decodes JPEG XR any more; this one file does, including HDR (32-bit
-  float) and images with alpha. JPEG XR is found in:
-  - `.jxr` files, e.g. HDR screenshots from the Xbox Game Bar on Windows (the HDR data is only in the `.jxr`);
-  - Zeiss CZI microscopy files, whose whole-slide images are often JPEG XR-compressed tiles. Your code reads a tile
-    from the CZI file and passes its bytes to `decode`.
-- **Fast thumbnails of large images.** `decodeAtScale` decodes at 1/2 to 1/16 size directly, skipping the fine
-  detail: about 10 times faster than a full decode at 1/4 or 1/8. For previews, thumbnails and fit-to-window views
-  of whole-slide images.
-- **Drop-in.** One file, no build, no npm, no native libraries.
+## What is JPEG XR
 
-Based on [bvibber/jpegxr](https://github.com/bvibber/jpegxr) by Brooke Vibber, a wrapper around the jxrlib codec
-open-sourced by Microsoft. This version is not endorsed by the original authors. Decoding only.
-Already in use in a real project.
+An image format like JPEG, but it can also store:
+
+- HDR, up to 32-bit float per channel
+- lossless images
+- transparency
+
+Browsers cannot display it.
+
+## Where you meet it
+
+| Source | Example |
+|---|---|
+| `.jxr` files | HDR screenshots from the Xbox Game Bar on Windows |
+| Zeiss CZI files | Microscopy whole-slide images, stored as JPEG XR tiles |
+
+## Why jpegxr-js
+
+- **Works in any browser.** One file. No build, no npm.
+- **Fast thumbnails.** Decode at 1/2 to 1/16 size directly, over 10x faster at 1/4 and smaller.
+- **In real use.** Already decoding images in a real project.
 
 # Usage
 
-**[Download jpegxr.js](https://github.com/zhouqinbo/jpegxr-js/raw/main/dist/jpegxr.js)** and copy it into your
-project. No build, no npm: a single ES module file (185 KB) with the WebAssembly binary inlined.
+1. **[Download jpegxr.js](https://github.com/zhouqinbo/jpegxr-js/raw/main/dist/jpegxr.js)** (185 KB, an ES module).
+2. Copy it into your project.
+3. Import it and decode:
 
 ```js
 import jpegxr from './jpegxr.js';
@@ -49,26 +59,35 @@ const quarter = codec.decodeAtScale(bytes, 4);  // 1/4 size, much faster
 }
 ```
 
-Exceptions are thrown for invalid data. `bytes` has its own buffer and does not need to be freed.
+Notes:
+
+- Invalid data throws an exception.
+- `bytes` has its own buffer. No need to free it.
+- For a CZI file, read the JPEG XR tile from the file yourself, then pass its bytes to `decode`.
+- Decoding only. There is no encoder.
 
 # Sub-resolution decode
 
-`decodeAtScale(bytes, scale)` returns the same structure at `ceil(width / scale)` by `ceil(height / scale)` pixels;
-`scale` is 1, 2, 4, 8 or 16.
+`decodeAtScale(bytes, scale)` returns the same structure, smaller.
 
-Measured on `samples/panel-hdr.jxr` (3440 x 1440), average colour relative to the full decode:
+- `scale`: 1, 2, 4, 8 or 16
+- size: `ceil(width / scale)` x `ceil(height / scale)`
 
-| scale | size | time | average R / G / B |
+Speed on `samples/panel-hdr.jxr` (3440 x 1440):
+
+| scale | size | time | faster |
 |---|---|---|---|
-| 1 | 3440 x 1440 | 334 ms | 1.000 / 1.000 / 1.000 |
-| 2 | 1720 x 720 | 262 ms | 1.036 / 1.038 / 1.043 |
-| 4 | 860 x 360 | 26 ms | 0.973 / 0.984 / 0.990 |
-| 8 | 430 x 180 | 23 ms | 0.970 / 0.982 / 0.989 |
-| 16 | 215 x 90 | 5 ms | 0.921 / 0.951 / 0.969 |
+| 1 | 3440 x 1440 | 334 ms | 1x |
+| 2 | 1720 x 720 | 262 ms | 1.3x |
+| 4 | 860 x 360 | 26 ms | 13x |
+| 8 | 430 x 180 | 23 ms | 15x |
+| 16 | 215 x 90 | 5 ms | 67x |
+
+Colours stay within 5% of the full decode (8% at 1/16).
 
 # Building
 
-`dist/jpegxr.js` is built with emscripten 5.0.7 (emsdk needs Python 3.10 or newer):
+Only needed if you want to build `dist/jpegxr.js` yourself. It needs emscripten 5.0.7 (emsdk needs Python 3.10+):
 
 ```sh
 git clone https://github.com/emscripten-core/emsdk.git ~/emsdk
@@ -79,9 +98,14 @@ cp wasm/jpegxr.js dist/jpegxr.js && printf '\nexport default jpegxr;\n' >> dist/
 shasum -a 256 dist/jpegxr.js   # c83efc7dc2b0077cffab7896bbcba40363f0b261c44e8d1f03b5074115c7818b
 ```
 
-Tests, after `make`: `npm test` decodes the sample at full size; `node wasm/test-subres.js` checks every scale.
+Tests, after `make`:
+
+- `npm test`: decodes the sample at full size
+- `node wasm/test-subres.js`: checks every scale
 
 # Authors and license
+
+Based on [bvibber/jpegxr](https://github.com/bvibber/jpegxr) by Brooke Vibber, which wraps Microsoft's jxrlib.
 
 - jxrlib: Copyright (c) 2009, Microsoft
 - JS wrapper and tweaks to the C code: Copyright (c) Brooke Vibber `<bvibber@pobox.com>`

@@ -3,7 +3,7 @@
 jpegxr-js contains code from these sources, all under the BSD license in `license.md`:
 
 - **jxrlib** (the C JPEG XR codec in `jxrlib/`): Copyright (c) 2009, Microsoft. All rights reserved.
-- **jpegxr** (the Rust and JavaScript wrappers and the tweaks to the C code): Copyright (c) Brooke Vibber,
+- **jpegxr** (the JavaScript wrapper and the tweaks to the C code): Copyright (c) Brooke Vibber,
   https://github.com/bvibber/jpegxr. This repository starts from its commit 3e8b298; later changes of that project
   are not included, and its history is in its own repository.
 - **jpegxr-js changes** (sub-resolution decode in the JS API, the newer-emscripten fix):

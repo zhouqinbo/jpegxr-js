@@ -13,8 +13,8 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
 
 ---
 
-The Rust and JavaScript wrappers and the tweaks to the C code (from https://github.com/bvibber/jpegxr), under
-this license, quoted verbatim from the header of src/lib.rs in the original project:
+The JavaScript wrapper and the tweaks to the C code (from https://github.com/bvibber/jpegxr), under this license,
+quoted verbatim from the source file header of the original project:
 
 ```
 Copyright © Brooke Vibber

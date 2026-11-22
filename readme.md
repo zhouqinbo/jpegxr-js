@@ -1,10 +1,10 @@
 # jpegxr-js - JPEG XR decoding in JavaScript, with fast sub-resolution decode
 
 jpegxr-js is an independent continuation of [bvibber/jpegxr](https://github.com/bvibber/jpegxr) by Brooke Vibber:
-Rust and JavaScript (WebAssembly) wrappers around the C libjpegxr / jxrlib codec open-sourced by Microsoft. This
-repository starts from bvibber/jpegxr at commit `3e8b298` with the changes below (2026-05-06); later changes of the
-original project are not included, and its history is in its own repository. Only the JavaScript part is kept: the
-Rust crate of the original project is not included. This version is not endorsed by the original authors.
+a JavaScript (WebAssembly) wrapper around the C libjpegxr / jxrlib codec open-sourced by Microsoft. This repository
+starts from bvibber/jpegxr at commit `3e8b298` with the changes below (2026-05-06); later changes of the original
+project are not included, and its history is in its own repository. This version is not endorsed by the original
+authors.
 
 What this version adds:
 
@@ -24,7 +24,7 @@ Please report problems with this version here.
 # Authors
 
 The wrapped C JPEG XR library was written by many fine folks at Microsoft!
-Rust and JS code wrapping it, and tweaks to the C code, are by Brooke Vibber `<bvibber@pobox.com>`.
+The JS code wrapping it, and tweaks to the C code, are by Brooke Vibber `<bvibber@pobox.com>`.
 Sub-resolution decode in the JS API and the newer-emscripten fix are by qinbo zhou.
 
 # License and copyright
@@ -32,7 +32,7 @@ Sub-resolution decode in the JS API and the newer-emscripten fix are by qinbo zh
 BSD-style license; see `license.md`, `NOTICE.md` and the headers in source files.
 
 - jxrlib: Copyright (c) 2009, Microsoft
-- Rust and JS wrappers: Copyright (c) Brooke Vibber
+- JS wrapper and tweaks to the C code: Copyright (c) Brooke Vibber
 - Changes in jpegxr-js: Copyright (c) 2026 qinbo zhou
 
 All are under the same BSD terms; keep these notices when you redistribute.

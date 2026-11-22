@@ -2,6 +2,16 @@
 
 JPEG XR decoding in JavaScript, with fast sub-resolution decode.
 
+- **Opens JPEG XR in the browser.** No browser decodes JPEG XR any more; this one file does, including HDR (32-bit
+  float) and images with alpha. JPEG XR is found in:
+  - `.jxr` files, e.g. HDR screenshots from the Xbox Game Bar on Windows (the HDR data is only in the `.jxr`);
+  - Zeiss CZI microscopy files, whose whole-slide images are often JPEG XR-compressed tiles. Your code reads a tile
+    from the CZI file and passes its bytes to `decode`.
+- **Fast thumbnails of large images.** `decodeAtScale` decodes at 1/2 to 1/16 size directly, skipping the fine
+  detail: about 10 times faster than a full decode at 1/4 or 1/8. For previews, thumbnails and fit-to-window views
+  of whole-slide images.
+- **Drop-in.** One file, no build, no npm, no native libraries.
+
 Based on [bvibber/jpegxr](https://github.com/bvibber/jpegxr) by Brooke Vibber, a wrapper around the jxrlib codec
 open-sourced by Microsoft. This version is not endorsed by the original authors. Decoding only.
 Already in use in a real project.
@@ -44,8 +54,7 @@ Exceptions are thrown for invalid data. `bytes` has its own buffer and does not 
 # Sub-resolution decode
 
 `decodeAtScale(bytes, scale)` returns the same structure at `ceil(width / scale)` by `ceil(height / scale)` pixels;
-`scale` is 1, 2, 4, 8 or 16. jxrlib's inverse transform skips the high-frequency subbands, so this is much faster than
-a full decode followed by a downscale. Useful for thumbnails and fit-to-window views of large images.
+`scale` is 1, 2, 4, 8 or 16.
 
 Measured on `samples/panel-hdr.jxr` (3440 x 1440), average colour relative to the full decode:
 

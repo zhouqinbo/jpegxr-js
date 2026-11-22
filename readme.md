@@ -8,8 +8,8 @@ Already in use in a real project.
 
 # Usage
 
-Copy [`dist/jpegxr.js`](dist/jpegxr.js) into your project: a single ES module file (185 KB) with the WebAssembly
-binary inlined, no npm package and no separate `.wasm` file needed.
+**[Download jpegxr.js](https://github.com/zhouqinbo/jpegxr-js/raw/main/dist/jpegxr.js)** and copy it into your
+project. No build, no npm: a single ES module file (185 KB) with the WebAssembly binary inlined.
 
 ```js
 import jpegxr from './jpegxr.js';

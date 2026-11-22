@@ -2,8 +2,8 @@
 
 JPEG XR decoding in JavaScript, with fast sub-resolution decode.
 
-Based on [bvibber/jpegxr](https://github.com/bvibber/jpegxr) by Brooke Vibber (commit `3e8b298`), a wrapper around
-the jxrlib codec open-sourced by Microsoft. This version is not endorsed by the original authors. Decoding only.
+Based on [bvibber/jpegxr](https://github.com/bvibber/jpegxr) by Brooke Vibber, a wrapper around the jxrlib codec
+open-sourced by Microsoft. This version is not endorsed by the original authors. Decoding only.
 Already in use in a real project.
 
 # Usage

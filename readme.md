@@ -29,7 +29,7 @@ Browsers cannot display it.
 
 1. **[Download jpegxr.js](https://github.com/zhouqinbo/jpegxr-js/raw/main/dist/jpegxr.js)** (185 KB, an ES module).
 2. Copy it into your project.
-3. Import it and decode:
+3. Import it and decode, in a `<script type="module">` or with a bundler:
 
 ```js
 import jpegxr from './jpegxr.js';
@@ -52,7 +52,7 @@ const quarter = codec.decodeAtScale(bytes, 4);  // 1/4 size, much faster
         bitDepth: string, // "8", "32Float" etc
         bitsPerPixel: number, // 24, 32, 128 etc
         hasAlpha: boolean,
-        premultipliedAlpha: boolean,
+        premultipledAlpha: boolean, // spelled this way
         bgr: boolean, // indicates RGB has blue channel first, not red
     },
     bytes: Uint8Array
@@ -61,9 +61,11 @@ const quarter = codec.decodeAtScale(bytes, 4);  // 1/4 size, much faster
 
 Notes:
 
+- `image.bytes` holds the raw pixels, row after row, `width * bitsPerPixel / 8` bytes per row. To show them on a
+  canvas, convert them to RGBA yourself.
+- `image.bytes` has its own buffer. No need to free it.
+- `decode` takes a complete JPEG XR file, as in a `.jxr`. A CZI tile without the JPEG XR header needs it added first.
 - Invalid data throws an exception.
-- `bytes` has its own buffer. No need to free it.
-- For a CZI file, read the JPEG XR tile from the file yourself, then pass its bytes to `decode`.
 - Decoding only. There is no encoder.
 
 # Sub-resolution decode

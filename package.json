@@ -1,0 +1,32 @@
+{
+  "name": "jpegxr-js",
+  "version": "0.4.0",
+  "description": "JPEG XR decoding in JavaScript (WebAssembly), with fast sub-resolution decode; based on bvibber/jpegxr",
+  "main": "wasm/jpegxr.js",
+  "scripts": {
+    "build": "make",
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhouqinbo/jpegxr-js.git"
+  },
+  "keywords": [
+    "jpegxr",
+    "jpeg-xr",
+    "jxr",
+    "wasm",
+    "webassembly",
+    "image-decoder",
+    "thumbnail"
+  ],
+  "author": "Brooke Vibber <bvibber@pobox.com>",
+  "contributors": [
+    "qinbo zhou (https://github.com/zhouqinbo)"
+  ],
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/zhouqinbo/jpegxr-js/issues"
+  },
+  "homepage": "https://github.com/zhouqinbo/jpegxr-js#readme"
+}

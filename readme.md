@@ -40,6 +40,9 @@ const image = codec.decode(bytes);              // full size
 const quarter = codec.decodeAtScale(bytes, 4);  // 1/4 size, much faster
 ```
 
+In Node.js: delete the last line of the file (`export default jpegxr;`), save it as `jpegxr.cjs`, and load it with
+`const jpegxr = require('./jpegxr.cjs');`.
+
 `decode` returns:
 
 ```js

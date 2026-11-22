@@ -1,7 +1,7 @@
 {
   "name": "jpegxr-js",
   "version": "0.4.0",
-  "description": "JPEG XR decoding in JavaScript (WebAssembly), with fast sub-resolution decode; based on bvibber/jpegxr",
+  "description": "JPEG XR decoding in JavaScript, with fast sub-resolution decode; based on bvibber/jpegxr",
   "main": "wasm/jpegxr.js",
   "scripts": {
     "build": "make",
